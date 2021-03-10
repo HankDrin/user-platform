@@ -2,6 +2,7 @@ package org.geektimes.projects.user.sql;
 
 import org.geektimes.projects.user.domain.User;
 
+import javax.annotation.Resource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -24,6 +25,7 @@ public class DBConnectionManager {
         this.connection = connection;
     }
 
+    @Resource(name = "jdbc/UserPlatformDB")
     private static DataSource dataSource;
     static {
         initDataSource();

@@ -3,6 +3,13 @@ package org.geektimes.projects.user.service;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.repository.UserRepository;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * TODO
  *
@@ -11,11 +18,11 @@ import org.geektimes.projects.user.repository.UserRepository;
  */
 public class UserServiceImpl implements UserService {
 
-    private UserRepository repository;
+    @Resource(name = "bean/EntityManager")
+    private EntityManager entityManager;
 
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
-    }
+    @Resource(name = "bean/Validator")
+    private Validator validator;
 
     /**
      * 注册用户
@@ -36,8 +43,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean deregister(User user) {
-        repository.save(user);
-        return false;
+        Set<ConstraintViolation<User>> violationSet = validator.validate(user);
+        if (!violationSet.isEmpty()) {
+            throw new RuntimeException(violationSet.stream().map(ConstraintViolation::getMessage).collect(
+                    Collectors.joining(" | ")));
+        }
+        entityManager.persist(user);
+        return true;
     }
 
     /**

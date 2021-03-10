@@ -1,6 +1,7 @@
 package org.geektimes.web.mvc;
 
 import org.apache.commons.lang.StringUtils;
+import org.geektimes.context.ComponentContext;
 import org.geektimes.web.mvc.controller.Controller;
 import org.geektimes.web.mvc.controller.PageController;
 import org.geektimes.web.mvc.controller.RestController;
@@ -52,7 +53,9 @@ public class FrontControllerServlet extends HttpServlet {
      * 利用 ServiceLoader 技术（Java SPI）
      */
     private void initHandleMethods() {
+        ComponentContext context = ComponentContext.getInstance();
         for (Controller controller : ServiceLoader.load(Controller.class)) {
+            context.injectComponents(controller, controller.getClass());
             Class<?> controllerClass = controller.getClass();
             Path pathFromClass = controllerClass.getAnnotation(Path.class);
             String classRootPath = pathFromClass.value();

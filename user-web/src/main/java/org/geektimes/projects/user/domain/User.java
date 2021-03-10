@@ -1,22 +1,38 @@
 package org.geektimes.projects.user.domain;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
+
+import static javax.persistence.GenerationType.AUTO;
 
 /**
  * 用户领域对象
  *
  * @since 1.0
  */
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    @Min(1)
     private Long id;
 
+    @Column
     private String name;
 
+    @Column
+    @Pattern(regexp = ".{6,32}")
     private String password;
 
+    @Column
     private String email;
 
+    @Column
+    @Pattern(regexp = "\\d{11}")
     private String phoneNumber;
 
     public Long getId() {

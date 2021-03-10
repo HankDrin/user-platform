@@ -6,6 +6,7 @@ import org.geektimes.projects.user.service.UserService;
 import org.geektimes.projects.user.service.UserServiceImpl;
 import org.geektimes.web.mvc.controller.PageController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -21,7 +22,8 @@ import javax.ws.rs.Path;
 @Path("/user")
 public class UserPageController implements PageController {
 
-    private final UserService userService = new UserServiceImpl(new DatabaseUserRepository());
+    @Resource(name = "bean/UserService")
+    private UserService userService;
 
     /**
      * 用户注册
