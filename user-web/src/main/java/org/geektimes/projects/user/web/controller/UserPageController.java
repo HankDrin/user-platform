@@ -1,5 +1,7 @@
 package org.geektimes.projects.user.web.controller;
 
+import org.apache.commons.lang.StringUtils;
+import org.geektimes.configuration.microprofile.config.servlet.listener.ConfigServletRequestListener;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.repository.DatabaseUserRepository;
 import org.geektimes.projects.user.service.UserService;
@@ -48,7 +50,7 @@ public class UserPageController implements PageController {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
-        user.setName(name);
+        user.setName(StringUtils.isBlank(name) ? ConfigServletRequestListener.getConfig().getValue("user.default.name", String.class) : name);
         user.setPassword(password);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);

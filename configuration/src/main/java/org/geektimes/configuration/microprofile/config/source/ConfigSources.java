@@ -40,7 +40,7 @@ public class ConfigSources implements Iterable<ConfigSource> {
             return;
         }
 
-        addConfigSources(JavaSystemPropertiesConfigSource.class);
+        addConfigSources(JavaSystemPropertiesConfigSource.class, OperationSystemEnvironmentVariablesConfigSource.class);
 
         addedDefaultConfigSources = true;
     }
