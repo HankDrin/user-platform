@@ -27,6 +27,12 @@ public abstract class MapBasedConfigSource implements ConfigSource {
         this.source = getProperties();
     }
 
+    public MapBasedConfigSource(String name, int ordinal, Map<String, String> source) {
+        this.name = name;
+        this.ordinal = ordinal;
+        this.source = source;
+    }
+
     /**
      * 获取配置数据 Map
      *

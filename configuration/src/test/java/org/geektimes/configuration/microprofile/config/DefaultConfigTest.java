@@ -32,6 +32,6 @@ public class DefaultConfigTest {
 
     @Test
     public void testGetValue() {
-        Assert.assertEquals("user-platform-test", config.getConfigValue("application.name").getValue());
+        Assert.assertEquals("user-platform-test", config.getConfigValue("application.name.test").getValue());
     }
 }

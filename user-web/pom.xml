@@ -27,6 +27,12 @@
             <version>${revision}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.geektimes.projects</groupId>
+            <artifactId>configuration</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
         <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>

@@ -4,6 +4,9 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.spi.ConfigBuilder;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -51,6 +54,12 @@ public class DefaultConfigProviderResolver extends ConfigProviderResolver {
 
     @Override
     public void releaseConfig(Config config) {
-
+        LinkedList<ClassLoader> targetKeys = new LinkedList<>();
+        for (Map.Entry<ClassLoader, Config> entry : configsRepository.entrySet()) {
+            if (Objects.equals(config, entry.getValue())) {
+                targetKeys.add(entry.getKey());
+            }
+        }
+        targetKeys.forEach(configsRepository::remove);
     }
 }
