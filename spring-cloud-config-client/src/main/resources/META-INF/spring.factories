@@ -1,0 +1,2 @@
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+  org.geektimes.projects.spring.cloud.config.client.FilePropertySourceLocator
